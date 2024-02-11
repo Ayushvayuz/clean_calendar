@@ -73,47 +73,47 @@ class CalendarNavigatorHeaderSection extends StatelessWidget {
                       : monthYearTextStyle,
                 ),
               ),
-              Flexible(
-                child: Row(
-                  children: [
-                    shouldShowResetButton
-                        ? Expanded(
-                            child: IconButton(
-                              onPressed: () {
-                                pageControllerState.pageController
-                                    .animateToPage(
-                                        pageControllerState.initialIndex,
-                                        duration: kTabScrollDuration,
-                                        curve: Curves.ease);
-                              },
-                              padding: EdgeInsets.zero,
-                              icon: navigatorResetButtonIcon,
-                            ),
-                          )
-                        : const Expanded(child: SizedBox()),
-                    Expanded(
-                      child: IconButton(
-                        onPressed: () {
-                          pageControllerState.pageController.previousPage(
-                              duration: kTabScrollDuration, curve: Curves.ease);
-                        },
-                        padding: EdgeInsets.zero,
-                        icon: navigateLeftButtonIcon,
-                      ),
-                    ),
-                    Expanded(
-                      child: IconButton(
-                        onPressed: () {
-                          pageControllerState.pageController.nextPage(
-                              duration: kTabScrollDuration, curve: Curves.ease);
-                        },
-                        padding: EdgeInsets.zero,
-                        icon: navigateRightButtonIcon,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              // Flexible(
+              //   child: Row(
+              //     children: [
+              //       shouldShowResetButton
+              //           ? Expanded(
+              //               child: IconButton(
+              //                 onPressed: () {
+              //                   pageControllerState.pageController
+              //                       .animateToPage(
+              //                           pageControllerState.initialIndex,
+              //                           duration: kTabScrollDuration,
+              //                           curve: Curves.ease);
+              //                 },
+              //                 padding: EdgeInsets.zero,
+              //                 icon: navigatorResetButtonIcon,
+              //               ),
+              //             )
+              //           : const Expanded(child: SizedBox()),
+              //       Expanded(
+              //         child: IconButton(
+              //           onPressed: () {
+              //             pageControllerState.pageController.previousPage(
+              //                 duration: kTabScrollDuration, curve: Curves.ease);
+              //           },
+              //           padding: EdgeInsets.zero,
+              //           icon: navigateLeftButtonIcon,
+              //         ),
+              //       ),
+              //       Expanded(
+              //         child: IconButton(
+              //           onPressed: () {
+              //             pageControllerState.pageController.nextPage(
+              //                 duration: kTabScrollDuration, curve: Curves.ease);
+              //           },
+              //           padding: EdgeInsets.zero,
+              //           icon: navigateRightButtonIcon,
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
             ],
           ),
         );
