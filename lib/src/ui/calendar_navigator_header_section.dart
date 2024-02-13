@@ -3,10 +3,23 @@ import 'package:clean_calendar/src/state/page_controller.dart';
 import 'package:flutter/material.dart';
 
 class CalendarNavigatorHeaderSection extends StatelessWidget {
-  const CalendarNavigatorHeaderSection(
+  bool isIconshow;
+  Widget? icon1;
+  Widget? icon2;
+  final dynamic onTapNext;
+  final dynamic onTapNext2;
+  final dynamic onTapMonthView;
+   CalendarNavigatorHeaderSection(
       {Key? key,
       required this.calendarProperties,
-      required this.pageControllerState})
+      required this.pageControllerState,
+      this.icon1,
+      this.icon2,
+      this.isIconshow=false,
+      this.onTapNext,
+      this.onTapNext2,
+      this.onTapMonthView
+      })
       : super(key: key);
 
   final CalendarProperties calendarProperties;
@@ -38,19 +51,19 @@ class CalendarNavigatorHeaderSection extends StatelessWidget {
               Icons.calendar_today,
             );
 
-        Icon navigateLeftButtonIcon = calendarProperties
-                .headerProperties.navigatorDecoration?.navigateLeftButtonIcon ??
-            const Icon(
-              Icons.arrow_back_ios,
-              size: 12,
-            );
+        // Widget navigateLeftButtonIcon = calendarProperties
+        //         .headerProperties.navigatorDecoration?.navigateLeftButtonIcon ??
+        //     const Icon(
+        //       Icons.arrow_back_ios,
+        //       size: 12,
+        //     );
 
-        Icon navigateRightButtonIcon = calendarProperties.headerProperties
-                .navigatorDecoration?.navigateRightButtonIcon ??
-            const Icon(
-              Icons.arrow_forward_ios,
-              size: 12,
-            );
+        // Widget navigateRightButtonIcon = calendarProperties.headerProperties
+        //         .navigatorDecoration?.navigateRightButtonIcon ??
+        //     const Icon(
+        //       Icons.arrow_forward_ios,
+        //       size: 12,
+        //     );
 
         Color? monthYearTextColor = calendarProperties
             .headerProperties.monthYearDecoration?.monthYearTextColor;
@@ -65,55 +78,63 @@ class CalendarNavigatorHeaderSection extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Flexible(
-                child: Text(
-                  "${monthsSymbolsList[pageViewDateTime.month - 1]} ${pageViewDateTime.year}",
-                  overflow: TextOverflow.ellipsis,
-                  style: monthYearTextColor != null
-                      ? monthYearTextStyle?.copyWith(color: monthYearTextColor)
-                      : monthYearTextStyle,
+                child: Row(
+                  children: [
+                    GestureDetector(
+                      onTap: onTapMonthView,
+                      child: Icon(Icons.arrow_back_ios,size: 14,)),
+                    Text(
+                      "${monthsSymbolsList[pageViewDateTime.month - 1]} ${pageViewDateTime.year}",
+                      overflow: TextOverflow.ellipsis,
+                      style: monthYearTextColor != null
+                          ? monthYearTextStyle?.copyWith(color: monthYearTextColor)
+                          : monthYearTextStyle,
+                    ),
+                  ],
                 ),
               ),
-              // Flexible(
-              //   child: Row(
-              //     children: [
-              //       shouldShowResetButton
-              //           ? Expanded(
-              //               child: IconButton(
-              //                 onPressed: () {
-              //                   pageControllerState.pageController
-              //                       .animateToPage(
-              //                           pageControllerState.initialIndex,
-              //                           duration: kTabScrollDuration,
-              //                           curve: Curves.ease);
-              //                 },
-              //                 padding: EdgeInsets.zero,
-              //                 icon: navigatorResetButtonIcon,
-              //               ),
-              //             )
-              //           : const Expanded(child: SizedBox()),
-              //       Expanded(
-              //         child: IconButton(
-              //           onPressed: () {
-              //             pageControllerState.pageController.previousPage(
-              //                 duration: kTabScrollDuration, curve: Curves.ease);
-              //           },
-              //           padding: EdgeInsets.zero,
-              //           icon: navigateLeftButtonIcon,
-              //         ),
-              //       ),
-              //       Expanded(
-              //         child: IconButton(
-              //           onPressed: () {
-              //             pageControllerState.pageController.nextPage(
-              //                 duration: kTabScrollDuration, curve: Curves.ease);
-              //           },
-              //           padding: EdgeInsets.zero,
-              //           icon: navigateRightButtonIcon,
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // ),
+              Flexible(
+                child: Row(
+                  children: [
+                    shouldShowResetButton
+                        ? Expanded(
+                            child: IconButton(
+                              onPressed: () {
+                                pageControllerState.pageController
+                                    .animateToPage(
+                                        pageControllerState.initialIndex,
+                                        duration: kTabScrollDuration,
+                                        curve: Curves.ease);
+                              },
+                              padding: EdgeInsets.zero,
+                              icon: navigatorResetButtonIcon,
+                            ),
+                          )
+                        : const Expanded(child: SizedBox()),
+                    // Expanded(
+                    //   child: IconButton(
+                    //     onPressed: () {
+                    //       pageControllerState.pageController.previousPage(
+                    //           duration: kTabScrollDuration, curve: Curves.ease);
+                    //     },
+                    //     padding: EdgeInsets.zero,
+                    //     icon: navigateLeftButtonIcon,
+                    //   ),
+                    // ),
+                    // Expanded(
+                    //   child: IconButton(
+                    //     onPressed: () {
+                    //       pageControllerState.pageController.nextPage(
+                    //           duration: kTabScrollDuration, curve: Curves.ease);
+                    //     },
+                    //     padding: EdgeInsets.zero,
+                    //     icon: navigateRightButtonIcon,
+                    //   ),
+                    // ),
+                    Icon(Icons.add),Icon(Icons.filter)
+                  ],
+                ),
+              ),
             ],
           ),
         );
