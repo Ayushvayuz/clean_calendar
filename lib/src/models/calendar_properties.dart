@@ -144,6 +144,9 @@ class CalendarProperties {
   /// App context (For setting defaults based on app theme).
   final BuildContext context;
 
+  //adding bool for showing Icon
+  bool? showIcon;
+
   CalendarProperties({
     HeaderProperties? headerProperties,
     WeekdaysProperties? weekdaysProperties,
@@ -170,10 +173,12 @@ class CalendarProperties {
     Weekdays? weekdaysSymbol,
     Months? monthsSymbol,
     required this.context,
+    required this.showIcon,
   })  :
 
         /// Setting header properties.
         headerProperties = HeaderProperties(
+          isShowIcon: showIcon,
           monthYearDecoration: MonthYearDecoration(
             monthYearTextColor:
                 headerProperties?.monthYearDecoration?.monthYearTextColor ??

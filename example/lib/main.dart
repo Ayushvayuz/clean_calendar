@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:clean_calendar/clean_calendar.dart';
 import 'package:flutter/material.dart';
 
@@ -14,13 +16,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(useMaterial3: true),
       darkTheme: ThemeData.dark(useMaterial3: true),
       themeMode: ThemeMode.system,
-      home: const Home(),
+      home:  Home(),
     );
   }
 }
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+   Home({Key? key,}) : super(key: key);
 
   @override
   State<Home> createState() => _HomeState();
@@ -28,6 +30,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   List<DateTime> selectedDates = [];
+  bool? isShowIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +43,7 @@ class _HomeState extends State<Home> {
         child: ListView(
           children: [
             CleanCalendar(
+              isIconShow: isShowIcon??false,
               enableDenseViewForDates: true,
               enableDenseSplashForDates: true,
               datesForStreaks: [
@@ -63,6 +67,7 @@ class _HomeState extends State<Home> {
                 // print(calendarViewDate);
               },
               onSelectedDates: (List<DateTime> value) {
+                log("The date has been selected");
                 setState(() {
                   if (selectedDates.contains(value.first)) {
                     selectedDates.remove(value.first);
@@ -77,6 +82,7 @@ class _HomeState extends State<Home> {
               height: 20,
             ),
             CleanCalendar(
+              isIconShow: true,
               datePickerCalendarView: DatePickerCalendarView.weekView,
               enableDenseViewForDates: true,
               enableDenseSplashForDates: true,
@@ -111,7 +117,9 @@ class _HomeState extends State<Home> {
               },
             ),
             CleanCalendar(
+              isIconShow: true,
               headerProperties: HeaderProperties(
+                isShowIcon:isShowIcon??false ,
                 monthYearDecoration: MonthYearDecoration(
                   monthYearTextColor: Colors.amber,
                   monthYearTextStyle: Theme.of(context).textTheme.labelMedium,

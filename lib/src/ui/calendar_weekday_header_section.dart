@@ -49,14 +49,17 @@ class CalendarWeekdaySymbol extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text(
-        symbol.toString(),
-        style: weekdayDecoration?.weekdayTextStyle
-                ?.copyWith(color: weekdayDecoration?.weekdayTextColor) ??
-            const TextStyle()
-                .copyWith(color: weekdayDecoration?.weekdayTextColor),
-        maxLines: 1,
-        overflow: TextOverflow.clip,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 20),
+        child: Text(
+          symbol.toString(),
+          style: weekdayDecoration?.weekdayTextStyle
+                  ?.copyWith(color: weekdayDecoration?.weekdayTextColor) ??
+              const TextStyle()
+                  .copyWith(color: weekdayDecoration?.weekdayTextColor),
+          maxLines: 1,
+          overflow: TextOverflow.clip,
+        ),
       ),
     );
   }

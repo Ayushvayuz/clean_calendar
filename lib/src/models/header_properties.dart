@@ -8,9 +8,13 @@ class HeaderProperties {
   /// - navigatorDecoration, changes the decoration of navigator.
   final NavigatorDecoration? navigatorDecoration;
 
+  //adding the bool for showIcon
+  bool? isShowIcon;
+
   HeaderProperties({
     this.monthYearDecoration,
     this.navigatorDecoration,
+    required this.isShowIcon,
   });
 
   Map<String, dynamic> toMap() {

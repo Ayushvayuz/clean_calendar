@@ -248,59 +248,62 @@ class CalendarGeneralDenseSplashDate extends StatelessWidget {
                     // print(widgetCenterOffset);
                     simulateTapOnAnOffset(widgetCenterOffset);
                   },
-            child: Row(
-              children: [
-                const Expanded(
-                  child: SizedBox(),
-                ),
-                InkResponse(
-                  containedInkWell: true,
-                  // highlightColor: Colors.blue,
-                  highlightShape: BoxShape.rectangle,
-                  customBorder: datesBorderRadius != null
-                      ? RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                              Radius.circular(datesBorderRadius)),
-                        )
-                      : null,
-                  splashFactory: InkRipple.splashFactory,
-                  onTap: disable ? null : dateSuitableDatesOnTap,
-                  child: SizedBox(
-                    width: 40,
-                    child: Container(
-                      margin: const EdgeInsets.all(4.0),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 16),
+              child: Row(
+                children: [
+                  const Expanded(
+                    child: SizedBox(),
+                  ),
+                  InkResponse(
+                    containedInkWell: true,
+                    // highlightColor: Colors.blue,
+                    highlightShape: BoxShape.rectangle,
+                    customBorder: datesBorderRadius != null
+                        ? RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(
+                                Radius.circular(datesBorderRadius)),
+                          )
+                        : null,
+                    splashFactory: InkRipple.splashFactory,
+                    onTap: disable ? null : dateSuitableDatesOnTap,
+                    child: SizedBox(
+                      width: 40,
                       child: Container(
-                        //Replace here with Ink after this fix https://github.com/flutter/flutter/issues/73315
-                        decoration: BoxDecoration(
-                          border: datesBorderColor != null
-                              ? Border.all(color: datesBorderColor, width: 1)
-                              : null,
-                          borderRadius: datesBorderRadius != null
-                              ? BorderRadius.all(
-                                  Radius.circular(datesBorderRadius))
-                              : null,
-                          color: datesBackgroundColor,
-                        ),
-                        child: Center(
-                          child: Text(
-                            key: widgetKey,
-                            pageViewElementDate.day.toString(),
-                            overflow: TextOverflow.ellipsis,
-                            style: datesTextStyle != null
-                                ? datesTextStyle.copyWith(
-                                    color: datesTextColor,
-                                  )
-                                : TextStyle(color: datesTextColor),
+                        margin: const EdgeInsets.all(4.0),
+                        child: Container(
+                          //Replace here with Ink after this fix https://github.com/flutter/flutter/issues/73315
+                          decoration: BoxDecoration(
+                            border: datesBorderColor != null
+                                ? Border.all(color: datesBorderColor, width: 1)
+                                : null,
+                            borderRadius: datesBorderRadius != null
+                                ? BorderRadius.all(
+                                    Radius.circular(datesBorderRadius))
+                                : null,
+                            color: datesBackgroundColor,
+                          ),
+                          child: Center(
+                            child: Text(
+                              key: widgetKey,
+                              pageViewElementDate.day.toString(),
+                              overflow: TextOverflow.ellipsis,
+                              style: datesTextStyle != null
+                                  ? datesTextStyle.copyWith(
+                                      color: datesTextColor,
+                                    )
+                                  : TextStyle(color: datesTextColor),
+                            ),
                           ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                const Expanded(
-                  child: SizedBox(),
-                ),
-              ],
+                  const Expanded(
+                    child: SizedBox(),
+                  ),
+                ],
+              ),
             ),
           )
         : const SizedBox();

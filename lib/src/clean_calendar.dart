@@ -6,8 +6,9 @@ import 'package:flutter/material.dart';
 
 class CleanCalendar extends StatelessWidget {
   /// - CleanCalendar, Shows a simple Calendar.
-  const CleanCalendar({
+   CleanCalendar({
     Key? key,
+    required this.isIconShow,
     this.datePickerCalendarView,
     this.headerProperties,
     this.weekdaysProperties,
@@ -36,6 +37,9 @@ class CleanCalendar extends StatelessWidget {
 
   /// - datePickerCalendarView, It takes calendar view type.
   final DatePickerCalendarView? datePickerCalendarView;
+
+ //adding for showing the icon
+  bool isIconShow;
 
   /// - headerProperties, It takes customisation properties for calendar header.
   final HeaderProperties? headerProperties;
@@ -115,6 +119,7 @@ class CleanCalendar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Calendar(
       calendarProperties: CalendarProperties(
+        showIcon: isIconShow,
           datePickerCalendarView: datePickerCalendarView,
           weekdaysProperties: weekdaysProperties,
           headerProperties: headerProperties,

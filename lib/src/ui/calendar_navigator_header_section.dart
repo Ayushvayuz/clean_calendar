@@ -1,29 +1,29 @@
-import 'package:clean_calendar/src/models/calendar_properties.dart';
+import 'package:clean_calendar/clean_calendar.dart';
 import 'package:clean_calendar/src/state/page_controller.dart';
 import 'package:flutter/material.dart';
 
 class CalendarNavigatorHeaderSection extends StatelessWidget {
-  bool isIconshow;
   Widget? icon1;
   Widget? icon2;
   final dynamic onTapNext;
   final dynamic onTapNext2;
   final dynamic onTapMonthView;
-   CalendarNavigatorHeaderSection(
+  CalendarNavigatorHeaderSection(
       {Key? key,
       required this.calendarProperties,
       required this.pageControllerState,
       this.icon1,
       this.icon2,
-      this.isIconshow=false,
       this.onTapNext,
       this.onTapNext2,
-      this.onTapMonthView
-      })
+      this.onTapMonthView})
       : super(key: key);
 
   final CalendarProperties calendarProperties;
   final PageControllerState pageControllerState;
+  bool? isIconShow=true;
+  List<DateTime> selectedDates = [];
+  String selectDate = "";
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +73,7 @@ class CalendarNavigatorHeaderSection extends StatelessWidget {
             Theme.of(context).textTheme.titleSmall;
 
         return Container(
-          margin: const EdgeInsets.only(left: 24, right: 8),
+          margin: const EdgeInsets.only(left: 10, right: 8),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -81,13 +81,82 @@ class CalendarNavigatorHeaderSection extends StatelessWidget {
                 child: Row(
                   children: [
                     GestureDetector(
-                      onTap: onTapMonthView,
-                      child: Icon(Icons.arrow_back_ios,size: 14,)),
+                        onTap: () {
+                          showModalBottomSheet(
+                              shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.vertical(
+                                      top: Radius.circular(30))),
+                              context: context,
+                              builder: (context) {
+                                return StatefulBuilder(
+                                    builder: (BuildContext context, setState) {
+                                  return SizedBox(
+                                      child: ListView(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 10),
+                                        child: CleanCalendar(
+                                          isIconShow: true,
+                                          enableDenseViewForDates: true,
+                                          enableDenseSplashForDates: true,
+                                          datesForStreaks: [
+                                            DateTime(2023, 01, 5),
+                                            DateTime(2023, 01, 6),
+                                            DateTime(2023, 01, 7),
+                                            DateTime(2023, 01, 9),
+                                            DateTime(2023, 01, 10),
+                                            DateTime(2023, 01, 11),
+                                            DateTime(2023, 01, 13),
+                                            DateTime(2023, 01, 20),
+                                            DateTime(2023, 01, 21),
+                                            DateTime(2023, 01, 23),
+                                            DateTime(2023, 01, 24),
+                                            DateTime(2023, 01, 25),
+                                          ],
+                                          dateSelectionMode:
+                                              DatePickerSelectionMode
+                                                  .singleOrMultiple,
+                                          startWeekday: WeekDay.wednesday,
+                                          selectedDates: selectedDates,
+                                          onCalendarViewDate:
+                                              (DateTime calendarViewDate) {
+                                            print(calendarViewDate);
+                                          },
+                                          onSelectedDates:
+                                              (List<DateTime> value) {
+                                            setState(() {
+                                              if (selectedDates
+                                                  .contains(value.first)) {
+                                                selectedDates.remove(value.first);
+                                               // setState((){
+                                                  selectDate = selectedDates.last.day.toString();
+                                               // });//
+                                              } else {
+                                                selectedDates.add(value.first);
+                                              }
+                                            });
+                                            // print(selectedDates);
+                                          },
+                                        ),
+                                      ),
+                                    ],
+                                  ));
+                                });
+                              });
+                        },
+                        child: Container(
+                          height: 25,width:25,
+                          child: const Icon(
+                            Icons.arrow_back_ios,
+                            size: 14,
+                          ),
+                        )),
                     Text(
-                      "${monthsSymbolsList[pageViewDateTime.month - 1]} ${pageViewDateTime.year}",
+                      selectDate.isEmpty?"${monthsSymbolsList[pageViewDateTime.month - 1]}${DateTime.now().day}, ${pageViewDateTime.year}":"${monthsSymbolsList[pageViewDateTime.month - 1]}${selectedDates.last.day}, ${pageViewDateTime.year}",
                       overflow: TextOverflow.ellipsis,
                       style: monthYearTextColor != null
-                          ? monthYearTextStyle?.copyWith(color: monthYearTextColor)
+                          ? monthYearTextStyle?.copyWith(
+                              color: monthYearTextColor)
                           : monthYearTextStyle,
                     ),
                   ],
@@ -131,7 +200,8 @@ class CalendarNavigatorHeaderSection extends StatelessWidget {
                     //     icon: navigateRightButtonIcon,
                     //   ),
                     // ),
-                    Icon(Icons.add),Icon(Icons.filter)
+                    isIconShow == true ? Icon(Icons.add) : SizedBox(),
+                    isIconShow == true ? Icon(Icons.filter) : SizedBox()
                   ],
                 ),
               ),
